@@ -1,0 +1,370 @@
+# This is a single-line comment
+
+#@ This is a heading!
+
+### This is a block comment ###
+
+###
+Block comments are multi-line.
+###
+
+### VARIABLE DECLARATIONS ###
+
+# Declaring a variable with 'var'
+
+var a
+
+# To declare a variable, simply assign to it.
+a = 32
+
+# You can infer it's type by using ':='.
+
+b := 7 # y is of type 'int'.
+
+# You can specify the variable's type by using ':'.
+
+c : float = 32 # 32 gets cast into float.
+
+# Unicode
+
+✨ = 7
+
+## Literals
+
+# Boolean literals
+
+my_value = true
+my_value = false
+my_value = yes
+my_value = no
+my_value = on
+my_value = off
+my_value = 1b
+my_value = 0b
+
+# Integer literals
+
+a = 12      # Decimal
+a = 0x00AAFF  # Hex
+a = 0b0110  # Binary
+a = 0o8422  # Octal
+a = 245_453_345 # An integer with _s for spacing.
+
+# Float literals
+
+c = 17.0
+
+# You can create vectors by using parenthesis.
+
+v : vec = (3, 4)
+v = (7, 6, 4, 6)
+
+v2 : vec<2> = (7, 8)
+
+m : mat<4, 4> = (
+    (1, 0, 0, 0)
+    (0, 1, 0, 0)    # Constructing a 4x4 matrix. Note it looks nothing like a math matrix.
+    (0, 0, 1, 0)    # Here each vector is written in a row.
+    (0, 0, 0, 1)
+)
+
+# You can, of course do lots of arithmetic with those.
+
+c = 0xFFFFFF + 5 * b + 7 * (a, 0.8)
+
+# You can write two expressions in the same line, by using a ';'
+c = a + b ^ 3; d = c * v
+
+# You can write a line expression in multiple lines, by 'escaping' the
+# line break with a '\'.
+
+c = 2 + 5 + 7 + \  # <-- joins the lines.
+    9 + 1 + 4
+
+# String literals
+
+my_string = "Hello there"
+
+my_string = 'single quotes also'
+
+my_string = "You can break lines, and they are joined by a single space
+so you can better organize your strings :)"
+
+my_string = """
+    Block strings are even greater because they recognize
+        relative
+            identation and save its formating.
+"""
+
+# You can use 'interpolation' to quickly compose strings delimited by 's.
+name = 'Pedro'
+age  = 3
+my_string = 'Greetings. I am #(name) and I am #(age + 7) years old.'
+
+# Regex literals
+
+my_regex = r'You can create a regex literal by prefacing a single-quoted string with an r.'
+block_regex = r'''
+    (\d+)
+    | (\n\t?\w*)
+    | \w\w\d\t\w
+'''
+
+# Lists
+
+l := [3, 4, "a string", false]
+
+# Indexing a list. 0-based indexing, of damn course.
+print l[1] # 4
+
+# You can use negative indexes to index from the end
+print l[-2] # "a string"
+
+# You can hard-type a list. This is almost always a good idea,
+# but it isn't enfored. This is so it is explicit when it's done.
+
+ltwo : list<int> = [3, 6, 4, 7, 0xAA] 
+
+# Lists, and other comma-separated-values can be separated with a newline
+# and no commas.
+
+lgoogol = [
+	1
+	2
+	3
+	4
+	5
+	6
+	7, 8
+	9
+	10
+]
+
+# You can quickly create a list by using ranges.
+
+lthree = 4..10  # [4, 5, 6, 7, 8, 9]
+lthree = 4...10 # [4, 5, 6, 7, 8, 9, 10]
+
+# You can splice lists using a similar notation when indexing.
+
+lfour = lthree[..4] # All items up to index '4'.
+lfour = lthree[3..] # Index '3' and so on.
+lfour = lthree[1..5] # From index 1 to 5 (does not include 5). 
+lfour = lthree[1...5] # From index 1 to 5 (does include 5). 
+
+# Objects can be declared with 
+
+o := {
+    value: 3
+    otherval int: 4
+    thirdval: 5, fourthval: 7
+}
+
+# Accessing an existing value
+print o.value
+
+# Adding a new value to the object
+o.newvalue = 8
+o["yet_another_new_value"] = "ooo"
+
+# Classes -- templates for your objects!
+
+my_class = class: value, value2 : int, valueboo : bool
+
+# You can now use 'my_class' as a type anywhere!
+# You can also use it as a constructor (behaves identical to a function).
+
+my_obj : my_class = my_class 0, 5, false
+
+# You can "type" a class with ':' to make it extend an existent class.
+
+my_other_class = class: my_class: value
+
+# You can check if a value inherits from a type.
+
+my_obj is my_class
+my_obj xis my_class
+
+## Functions
+
+f = fn x : float -> float : x*x + 2 * x - 3
+
+# Call a function by passing parameters to it.
+
+y = f x
+
+# If a function has no parameters, you can use '()' to call it.
+
+f2 = fn x = 3: print "Hello world " + string x
+
+f2() # Call it.
+
+# Be careful with parenthesis.
+
+### Calling ### f (3, 2) ### is actually a function with 1 parameter of type vec<2> ###
+### You should instead use ### f 3, 2
+
+# If you want to disambiguate who is whose argument, use parenthesis as you'd do anywhere else.
+
+f2 f 1, 2, 3 # Unclear
+
+f2 (f 1, 2), 3 # Clear 
+
+# Signals
+
+my_signal = signal param : int
+
+my_signal 3 # Calling a signal -- just like a function!
+
+connect my_signal, f2
+# This will connect the signal and the function f2,
+# so the function will be called when the signal is.
+
+# For any type of Callable (functions and signals) you can do some fancy stuff
+
+# Named parameters (after positional parameters)
+
+my_func = fn a, b, c=3, d=7: a + b + c + d
+
+my_func 4, 5, d: 9  # I don't pass a value for c!!!
+
+# Function reduction
+
+# Using '...', you can pass a value for only some parameters of a function. 
+# If not all paramaters are passed, instead of calling the function,
+# this will return a function object with the parameter bound,
+# so you can properly call it later.
+
+add = fn a, b : a + b
+
+add_six = add ... , 6 # Here I pass a value for b but not one for a.
+
+add_six 3 # Now I pass the missing argument, for a; This should return '9'.
+
+
+
+### FLOW CONTROL ###
+
+# Conditions
+
+x = 3
+
+if x > 0
+    print 'X is positive.'
+else if x == 0
+    print 'X is null'
+else
+    print 'X is negative'
+
+unless x < 5
+    print 'X is not smaller than five.'
+
+# Simpler than if-else chains
+match x
+    3: print 'X == 3'
+    4: print 'X == 4'
+    7: print 'X == 7'
+    _: print 'X isn\'t 3, 4 or 7. Huh.'
+
+# You can do conditions inline.
+
+y = 4 if x > 9 else 3
+
+
+
+# Loops
+
+lll = ["Item A", "Item B", "Item C", "Item D", "Avocado", "Item E"]
+
+loop 10: 'Looped 10 times.'
+for i in 10: print 'Counted #(i + 1) lines.'
+for i in 4..9 print 'Iterating in range. Currently at #(i).'
+for i in lll: print 'Iterating in list.  Currently at #(i).'
+
+# Loop alone creates infinite loops
+# Break can exit a loop (not just loop loops, but any loop.)
+loop: print 'Infinite loop, aaaaaaaaaaah. Just kidding.'; break
+
+# Continue directly goes to the next loop iteration.
+for item in lll
+    if item == "Item B"
+        continue
+    print item
+
+# Loops can be used inline as expressions.
+# They return an array with all the iterations' return values.
+
+listofmydreams = item for item in lll
+# ["Item A", "Item B", "Item C", "Item D", "Avocado", "Item E"]
+
+# You can filter items using 'when'.
+
+listofmydreams = item for item in lll when not item == "Avocado"
+# ["Item A", "Item B", "Item C", "Item D", "Item E"]
+
+
+
+# Try-catch
+
+try
+    x = 3 / 0
+catch e : ArithmeticError
+    print 'Can\'t divide by zero!'
+
+# You can use try-catch blocks inline as expressions.
+
+y = try 3 / 0 catch e : "INFINITY"
+
+
+
+### KEYWORDS ###
+
+# You can create your own keywords/operators.
+# You need to specify whether it uses the LEFT side or the RIGHT side,
+# Then pass in a function that takes an appropriate amount of parameters.
+
+plus_function := fn a, b: a + b
+plus := keyword yes, yes, plus_function
+
+# Then, you can use it like this:
+
+5 plus 6
+
+# You can also do it through casting a function into a keyword. Looks better.
+
+double : keyword<false, yes> = fn n: 2 * n
+
+double 5    # Yields 10.
+
+# Definition of a system-component
+
+Velocity = trait<T>
+	shared velocity := vec<T>()
+	shared position := vec<T>()
+
+	const process = fn dt : float
+		position += velocity * dt
+
+Acceleration = trait<T>
+	shared acceleration := vec<T>()
+	shared velocity := vec<T>()
+
+	const process = fn dt : float
+		velocity += acceleration * dt
+
+Sprite = trait
+	shared position := vec<2>()
+
+	const process = fn : float
+		Graphics.pset position, 0xFFFFFF
+
+# Create a player object
+player := entity [Sprite, Velocity<2>]
+
+#%TODO "Add acceleration -- it's currently doing nothing."
+player.velocity = (-6, 7)
+
+# On the main game loop
+main_loop := fn delta_time ->
+	Velocity.process delta_time
+	Sprite.process()

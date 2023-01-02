@@ -1,0 +1,25 @@
+{
+  "name": "nano",
+  "displayName": "Nano",
+  "description": "Support for the 'Nano' programming language.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "nano",
+      "aliases": ["Nano", "nano"],
+      "extensions": [".nn",".nano",".nh"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "nano",
+      "scopeName": "source.nano",
+      "path": "./syntaxes/nano.tmLanguage.json"
+    }]
+  }
+}
