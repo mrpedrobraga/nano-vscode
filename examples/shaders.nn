@@ -1,0 +1,32 @@
+import html, webgl
+
+const canvas = html.query_selector '#myCanvas'
+const GL = canvas.get_webgl_context()
+
+# Shader
+class MyShader : ShaderProgram:
+    %%uniform blue_cycle_speed : float = 0
+
+    const fragment = fn -> void
+        PIXEL_COLOR = (UV.x, UV.y, sin(TIME * blue_cycle_speed), 1)
+
+# Build shader program
+const shader_program = MyShader()
+GL.bind_program shader_program
+
+# Create model to render
+const vertices = [
+    0, 0
+    1, 0
+    1, 1
+    0, 1
+]
+const faces = [
+    0, 1, 2,
+    0, 2, 3
+]
+
+GL.bind_buffer vertices, GL_VERTEX_BUFFER
+GL.bind_buffer faces   , GL_VERTEX_INDEX_BUFFER
+
+GL.draw_arrays()

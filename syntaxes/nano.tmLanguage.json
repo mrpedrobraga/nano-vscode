@@ -1,216 +1,214 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "Nano",
-	"patterns": [
-		{
-			"include": "#annotations"
-		},
-		{
-			"include": "#annotations-line"
-		},
-		{
-			"include": "#comments-block"
-		},
-		{
-			"include": "#comments-inline"
-		},
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#strings-double-block"
-		},
-		{
-			"include": "#strings-single-block"
-		},
-		{
-			"include": "#strings-regex-block"
-		},
-		{
-			"include": "#strings-double"
-		},
-		{
-			"include": "#strings-single"
-		},
-		{
-			"include": "#strings-regex"
-		},
-		{
-			"include": "#booleans"
-		},
-		{
-			"include": "#floats"
-		},
-		{
-			"include": "#integers"
-		},
-		{
-			"include": "#object_properties"
-		}
-		
-	],
-	"repository": {
-		"annotations": {
-			"name": "meta.preprocessor.string",
-			"begin": "#%",
-			"end": "\n",
-			"patterns": []
-		},
-		"annotations-line": {
-			"patterns": [
-				{
-					"name": "meta.preprocessor.string",
-					"match": "%%\\w+\\b"
-				}
-			]
-		},
-		"comments-inline": {
-			"name": "comment.line.number-sign",
-			"begin": "#",
-			"end": "\n",
-			"patterns": []
-		},
-		"comments-block": {
-			"name": "comment.block.nano",
-			"begin": "###",
-			"end": "###",
-			"patterns": []
-		},
-		"keywords": {
-			"patterns": [
-				{
-					"name": "keyword.control.nano",
-					"match": "\\b(if|unless|else|while|until|for|loop|match|when|with|return|break|continue|discard|try|catch|finally)\\b"
-				},
-				{
-					"name": "storage",
-					"match": "\\b(var|const|shared|fn|signal|class|trait|keyword|self)\\b"
-				},
-				{
-					"name": "storage",
-					"match": "\\b(bool|int|i8|byte|i16|i32|i64|uint|u8|u16|u32|u64|float|f32|f64|fvec2|fvec3|fvec4|ivec2|ivec3|ivec4|bvec2|bvec3|bvec4|string|list|buffer|enum|flags|vec|mat|function|obj|refcounted|addr|void)\\b"
-				},
-				{
-					"name": "keyword.operator",
-					"match": "\\b(exp|log|ln|log_2|abs|norm|dot|cross|min|max|confine|randi|randf|randb)\\b"
-				},
-				{
-					"name": "keyword.operator",
-					"match": "\\b(as|in|is|isnt|not|and|or|xor)\\b"
-				},
-				{
-					"name": "keyword.other",
-					"match": "\\b(print|connect|addrof|await|import)\\b"
-				}
-			]
-		},
-		"strings-double": {
-			"name": "string.quoted.double.nano",
-			"begin": "\"",
-			"end": "\"",
-			"patterns": [
-				{
-					"name": "constant.character.escape.nano",
-					"match": "\\\\."
-				}
-			]
-		},
-		"strings-single": {
-			"name": "string.quoted.double.nano",
-			"begin": "'",
-			"end": "'",
-			"patterns": [
-				{
-					"name": "constant.character.escape.nano",
-					"match": "\\\\."
-				},
-				{
-					"name": "source.nano",
-					"match": "#\\((.*?)\\)"
-				}
-			]
-		},
-		"strings-regex": {
-			"name": "constant.regexp",
-			"begin": "r'",
-			"end": "'",
-			"patterns": [
-				{
-					"name": "constant.character.escape.nano",
-					"match": "\\\\."
-				}
-			]
-		},
-		"strings-double-block": {
-			"name": "string.quoted.double.nano",
-			"begin": "\"\"\"",
-			"end": "\"\"\"",
-			"patterns": [
-				{
-					"name": "constant.character.escape.nano",
-					"match": "\\\\."
-				}
-			]
-		},
-		"strings-single-block": {
-			"name": "string.quoted.single.nano",
-			"begin": "'''",
-			"end": "'''",
-			"patterns": [
-				{
-					"name": "constant.character.escape.nano",
-					"match": "\\\\."
-				}
-			]
-		},
-		"strings-regex-block": {
-			"name": "constant.regexp",
-			"begin": "r'''",
-			"end": "'''",
-			"patterns": [
-				{
-					"name": "constant.character.escape.nano",
-					"match": "\\\\."
-				}
-			]
-		},
-		"booleans": {
-			"patterns": [
-				{
-					"name": "keyword.other",
-					"match": "\\b(true|false|yes|no|on|off|1b(?!\\d)|0b(?!\\d))\\b"
-				}
-			]
-		},
-		"floats": {
-			"patterns": [
-				{
-					"name": "constant.numeric",
-					"match": "\\b[0-9][0-9_]*(?:\\.[0-9][0-9_]+)?f?\\b"
-				}
-			]
-		},
-		"integers": {
-			"patterns": [
-				{
-					"name": "constant.numeric",
-					"match": "\\b(0b[01OX\\□\\■_]+|0o[0-8_]+|[0-9_])\\b"
-				},
-				{
-					"name": "constant.rgb-value",
-					"match": "\\b0x([A-Fa-f0-9_]+)\\b"
-				}
-			]
-		},
-		"object_properties": {
-			"patterns": [
-				{
-					"name": "entity.name.class",
-					"match": "\\.\\w+"
-				}
-			]
-		}
-		
-	},
-	"scopeName": "source.nano"
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Nano",
+  "patterns": [
+    {
+      "include": "#annotations"
+    },
+    {
+      "include": "#annotations-line"
+    },
+    {
+      "include": "#comments-block"
+    },
+    {
+      "include": "#comments-inline"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#strings-double-block"
+    },
+    {
+      "include": "#strings-single-block"
+    },
+    {
+      "include": "#strings-regex-block"
+    },
+    {
+      "include": "#strings-double"
+    },
+    {
+      "include": "#strings-single"
+    },
+    {
+      "include": "#strings-regex"
+    },
+    {
+      "include": "#booleans"
+    },
+    {
+      "include": "#floats"
+    },
+    {
+      "include": "#integers"
+    },
+    {
+      "include": "#object_properties"
+    }
+  ],
+  "repository": {
+    "annotations": {
+      "name": "meta.preprocessor.string",
+      "begin": "#%",
+      "end": "\n",
+      "patterns": []
+    },
+    "annotations-line": {
+      "patterns": [
+        {
+          "name": "meta.preprocessor.string",
+          "match": "%%\\w+\\b"
+        }
+      ]
+    },
+    "comments-inline": {
+      "name": "comment.line.number-sign",
+      "begin": "#",
+      "end": "\n",
+      "patterns": []
+    },
+    "comments-block": {
+      "name": "comment.block.nano",
+      "begin": "###",
+      "end": "###",
+      "patterns": []
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.nano",
+          "match": "\\b(if|unless|else|while|until|for|loop|select|any|all|reduce|do|match|when|with|return|break|continue|discard|try|catch|finally)\\b"
+        },
+        {
+          "name": "storage",
+          "match": "\\b(var|const|shared|fn|signal|class|trait|keyword|self)\\b"
+        },
+        {
+          "name": "storage",
+          "match": "\\b(bool|int|i8|byte|i16|i32|i64|uint|u8|u16|u32|u64|float|f32|f64|fvec2|fvec3|fvec4|ivec2|ivec3|ivec4|bvec2|bvec3|bvec4|string|list|buffer|enum|flags|vec|mat|function|obj|refcounted|addr|void)\\b"
+        },
+        {
+          "name": "keyword.operator",
+          "match": "\\b(exp|log|ln|log_2|abs|norm|dot|cross|min|max|confine|randi|randf|randb)\\b"
+        },
+        {
+          "name": "keyword.operator",
+          "match": "\\b(as|in|is|isnt|not|and|or|xor)\\b"
+        },
+        {
+          "name": "keyword.other",
+          "match": "\\b(print|connect|addrof|await|import)\\b"
+        }
+      ]
+    },
+    "strings-double": {
+      "name": "string.quoted.double.nano",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.nano",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "strings-single": {
+      "name": "string.quoted.double.nano",
+      "begin": "'",
+      "end": "'",
+      "patterns": [
+        {
+          "name": "constant.character.escape.nano",
+          "match": "\\\\."
+        },
+        {
+          "name": "source.nano",
+          "match": "#\\((.*?)\\)"
+        }
+      ]
+    },
+    "strings-regex": {
+      "name": "constant.regexp",
+      "begin": "r'",
+      "end": "'",
+      "patterns": [
+        {
+          "name": "constant.character.escape.nano",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "strings-double-block": {
+      "name": "string.quoted.double.nano",
+      "begin": "\"\"\"",
+      "end": "\"\"\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.nano",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "strings-single-block": {
+      "name": "string.quoted.single.nano",
+      "begin": "'''",
+      "end": "'''",
+      "patterns": [
+        {
+          "name": "constant.character.escape.nano",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "strings-regex-block": {
+      "name": "constant.regexp",
+      "begin": "r'''",
+      "end": "'''",
+      "patterns": [
+        {
+          "name": "constant.character.escape.nano",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "booleans": {
+      "patterns": [
+        {
+          "name": "keyword.other",
+          "match": "\\b(true|false|yes|no|on|off|1b(?!\\d)|0b(?!\\d))\\b"
+        }
+      ]
+    },
+    "floats": {
+      "patterns": [
+        {
+          "name": "constant.numeric",
+          "match": "\\b[0-9][0-9_]*(?:\\.[0-9][0-9_]+)?f?\\b"
+        }
+      ]
+    },
+    "integers": {
+      "patterns": [
+        {
+          "name": "constant.numeric",
+          "match": "\\b(0b[01OX\\□\\■_]+|0o[0-8_]+|[0-9_])\\b"
+        },
+        {
+          "name": "constant.rgb-value",
+          "match": "\\b0x([A-Fa-f0-9_]+)\\b"
+        }
+      ]
+    },
+    "object_properties": {
+      "patterns": [
+        {
+          "name": "entity.name.class",
+          "match": "\\.[a-zA-Z]\\w*"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.nano"
 }
