@@ -1,1 +1,12 @@
-expr : var = 3
+import Geometry
+
+circle_A = Circle {o: (-1, 0), r: 0.5}
+circle_B = Circle {o: ( 1, 0), r: 0.5}
+
+draw circle_A
+draw circle_B
+
+circle_AB = Circle {
+    o: (midpoint circle_A.o, circle_B.o)
+    r: ((distance circle_A.o, circle_B.o) + circle_A.r + circle_B.r) / 2
+}

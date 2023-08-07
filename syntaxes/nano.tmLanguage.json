@@ -79,7 +79,7 @@
       "patterns": [
         {
           "name": "keyword.control.nano",
-          "match": "\\b(if|unless|else|while|until|for|loop|select|any|all|reduce|do|match|when|with|return|break|continue|discard|try|catch|finally)\\b"
+          "match": "\\b(if|unless|else|while|until|for|loop|select|any|all|reduce|do|match|when|with|return|break|continue|discard|throw|catch|finally)\\b"
         },
         {
           "name": "storage",
@@ -92,6 +92,10 @@
         {
           "name": "keyword.operator",
           "match": "\\b(exp|log|ln|log_2|abs|norm|dot|cross|min|max|confine|randi|randf|randb)\\b"
+        },
+        {
+          "name": "constant.numeric",
+          "match": "\\b(PI|TAU|E|PHI|NAN|INFINITY)\\b"
         },
         {
           "name": "keyword.operator",

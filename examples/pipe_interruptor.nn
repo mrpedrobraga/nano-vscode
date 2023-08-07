@@ -1,0 +1,17 @@
+%%export
+const PIPE_INTERRUPTOR = $`PIPE_INTERRUPTOR`
+
+%%export
+Pipe = class : <T> {
+    value : T
+
+    to := <E>fn callback: function<T, E> -> InterruptiblePipe<E>:
+        (const result = callback value
+
+        if result == PIPE_INTERRUPTOR
+            return InterruptedPipe value
+
+        (a > b) and a or b;
+
+        return Pipe result)
+}
