@@ -10,16 +10,33 @@
     "Programming Languages"
   ],
   "contributes": {
-    "languages": [{
-      "id": "nano",
-      "aliases": ["Nano", "nano"],
-      "extensions": [".nn",".nano",".nh"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "nano",
-      "scopeName": "source.nano",
-      "path": "./syntaxes/nano.tmLanguage.json"
-    }]
+    "languages": [
+      {
+        "id": "nano",
+        "aliases": [
+          "Nano",
+          "nano"
+        ],
+        "extensions": [
+          ".nn",
+          ".nano",
+          ".nh"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "nano",
+        "scopeName": "source.nano",
+        "path": "./syntaxes/nano.tmLanguage.json",
+        "embeddedLanguages": {
+          "source.nano": "nano",
+          "source.glsl": "glsl",
+          "source.sql": "sql",
+          "source.nasm": "asm"
+        }
+      }
+    ]
   }
 }
