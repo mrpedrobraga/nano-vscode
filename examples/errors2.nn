@@ -1,0 +1,37 @@
+import cmd_args;
+
+# CALC!
+
+# Calling with 'calc add 2 2'
+
+op = cmd_args[1]
+a = parseFloat(cmd_args[2])
+b = parseFloat(cmd_args[3])
+
+a !|> error '{cmd_args[2]} não é um número válido.'
+b !|> error '{cmd_args[3]} não é um número válido.'
+
+result := match op
+    when 'add' then
+        a + b
+
+
+########################
+
+import cmd_args;
+
+const ParseErrorHandler = ErrorHandler<ParseError> fn error: ParseError, symbolName: string, parent: object -> (
+    error '{error.parse_input} não é um número válido.'
+)
+
+########################
+
+with ParseErrorHandler
+
+op = cmd_args[1]
+a = parse_float(cmd_args[2])
+b = parse_float(cmd_args[3])
+
+result := match op
+    when 'add' then
+        a + b

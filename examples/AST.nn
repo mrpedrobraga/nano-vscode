@@ -1,0 +1,13 @@
+import * from mysql
+
+const database = MySQLDatabase {
+    host: 'localhost'
+    port: 3306
+}
+
+const myquery = %%sql (
+    SELECT * FROM users
+)
+
+const users = database.query 
+

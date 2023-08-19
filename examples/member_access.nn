@@ -1,0 +1,36 @@
+myobj := {
+    name: "Pedro"
+    age: 10
+    cart: {
+        products: [
+            {name: "Mayonnaise", value: 10, currency: "USD"}
+            {name: "Watermelon", value: 5, currency: "USD"}
+            {name: "Pinneapple", value: 4, currency: "USD"}
+        ]
+    }
+}
+
+# Simple access, returns 'typeof name'
+
+myobj.name
+# "Pedro"
+
+# Array Access
+myobj.cart.products[0]
+
+# Slices
+myobj.cart.products[1..2]
+myobj.cart.products[1..]
+myobj.cart.products[..1]
+
+# All products
+myobj.cart.products[*]
+
+# Accessing a member after a slice yields an array :D
+myobj.cart.products[*].name #["Mayonnaise", "Watermelon", "Pinneapple"]
+
+myobj.cart.products[*]
+
+# Reduce
+
+reduce myobj.cart.products[*].value with __nano__.sum

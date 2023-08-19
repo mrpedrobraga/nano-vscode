@@ -1,0 +1,23 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "scopeName": "source.nano.md",
+  "injectionSelector": "L:text.html.markdown",
+  "patterns": [{ "include": "#fenced_code_block_nano" }],
+  "repository": {
+    "fenced_code_block_nano": {
+      "begin": "```nano\\b",
+      "end": "```",
+      "beginCaptures": {
+        "0": {
+          "name": "markup.punctuation.markdown"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "markup.punctuation.markdown"
+        }
+      },
+      "patterns": [{ "include": "source.nano" }]
+    }
+  }
+}

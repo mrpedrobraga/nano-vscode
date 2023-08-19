@@ -44,6 +44,9 @@
           "include": "#strings-regex"
         },
         {
+          "include": "#pattern-matcher-literal"
+        },
+        {
           "include": "#booleans"
         },
         {
@@ -87,19 +90,23 @@
       "patterns": [
         {
           "name": "keyword.control.nano",
-          "match": "\\b(if|unless|else|while|until|for|in|loop|do|select|every|some|reduce|match|when|with|return|break|continue|discard|throw|catch|finally)\\b"
+          "match": "\\b(if|unless|then|elif|elun|else|while|until|for|in|loop|do|select|every|some|count|reduce|match|when|with|return|err|break|continue|discard|typeof)\\b"
         },
         {
-          "name": "storage",
-          "match": "\\b(var|const|shared|fn|signal|class|trait|keyword|self)\\b"
+          "name": "storage.modifier",
+          "match": "\\b(alias|let|const|shared|fn|get|set|call|construct|signal|slot|class|struct|type|trait|global|volatile)\\b"
         },
         {
-          "name": "storage",
-          "match": "\\b(bool|int|i8|byte|i16|i32|i64|uint|u8|u16|u32|u64|float|f32|f64|fvec2|fvec3|fvec4|ivec2|ivec3|ivec4|bvec2|bvec3|bvec4|string|list|buffer|enum|flags|vec|mat|function|obj|refcounted|addr|void)\\b"
+          "name": "storage.type",
+          "match": "\\b(bool|int|i8|byte|i16|i32|i64|uint|u8|u16|u32|u64|float|f32|f64|fvec2|fvec3|fvec4|ivec2|ivec3|ivec4|bvec2|bvec3|bvec4|string|list|struct|object|type|symbol|buffer|enum|flags|vec|mat|function|obj|addr|void|exclude)\\b"
         },
         {
           "name": "keyword.operator",
           "match": "\\b(not|and|or|xor|bnot|band|bor|bxor|exp|log|ln|log_2|abs|norm|dot|cross|min|max|confine|randi|randf|randb)\\b"
+        },
+        {
+          "name": "constant",
+          "match": "\\b(self|super|superfn)\\b"
         },
         {
           "name": "constant.numeric",
@@ -148,8 +155,19 @@
     },
     "strings-regex": {
       "name": "constant.regexp",
-      "begin": "r'",
-      "end": "'",
+      "begin": "r/",
+      "end": "/",
+      "patterns": [
+        {
+          "name": "constant.character.escape.nano",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "pattern-matcher-literal": {
+      "name": "constant.regexp",
+      "begin": "o/",
+      "end": "/",
       "patterns": [
         {
           "name": "constant.character.escape.nano",
@@ -181,8 +199,19 @@
     },
     "strings-regex-block": {
       "name": "constant.regexp",
-      "begin": "r'''",
-      "end": "'''",
+      "begin": "r///",
+      "end": "///",
+      "patterns": [
+        {
+          "name": "constant.character.escape.nano",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "strings-code-block": {
+      "name": "string.quoted.single.nano",
+      "begin": "```",
+      "end": "```",
       "patterns": [
         {
           "name": "constant.character.escape.nano",

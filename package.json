@@ -36,6 +36,14 @@
           "source.sql": "sql",
           "source.nasm": "asm"
         }
+      },
+      {
+        "path": "./syntaxes/nano-md.tmLanguage.json",
+        "scopeName": "source.nano.md",
+        "embeddedLanguages": {},
+        "injectTo": [
+          "text.html.markdown"
+        ]
       }
     ]
   }

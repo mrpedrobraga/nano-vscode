@@ -1,0 +1,24 @@
+import cmdArgs;
+
+problems = []
+
+# CALC!
+
+# Calling with 'calc add 2 2'
+
+op = cmdArgs[1]
+
+a = parseFloat(cmdArgs[2])
+    !|> problems += '{cmdArgs[2]} não é um número válido.';
+
+b = parseFloat(cmdArgs[3])
+    !|> problems += '{cmdArgs[3]} não é um número válido.';
+
+if problems.isnt_empty then error problems
+
+result := match op
+    when 'add' then
+        a + b
+
+
+# parseFloat -> float!ParseError

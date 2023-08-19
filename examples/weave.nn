@@ -1,0 +1,37 @@
+const mobj = {
+    a: {
+        name: "A",
+        type: "node"
+        children: {
+            b: {
+                name: "B"
+                type: "node"
+                children: {
+                    c: {
+                        name: "C"
+                        type: "leaf"
+                    }
+                }
+            }
+        }
+    }
+}
+
+const weave = fn target: obj -> (
+    if $children in _
+        then _.children {}|> weave _
+        else _.type
+)
+
+const mobj2 = mobj {}|> weave _
+
+###
+mobj2 will be
+{
+    a: {
+        b: {
+            c: "leaf"
+        }
+    }
+}
+###

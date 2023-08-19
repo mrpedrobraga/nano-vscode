@@ -1,0 +1,6 @@
+const assertNonNegative = fn (number: int) !ParseError -> (
+    if number < 0 then err Error {
+        name: "LessThanZeroError"
+        input: number
+    }
+)

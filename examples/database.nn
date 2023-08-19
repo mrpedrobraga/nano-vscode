@@ -1,0 +1,40 @@
+const my_database = Database {
+    host: 'localhost'
+    port: '3306'
+}
+
+%%db_entity my_database
+const Account = class {
+    %%primary_key
+    id: string
+    
+    number: string
+    
+    %%link_through _.accounts
+    user: User
+}
+
+%%db_entity my_database
+const User = class {
+    %%primary_key
+    id: string
+
+    register_name: string
+
+    social_name: string
+    
+    %%link_through _.user
+    accounts: Account[]
+}
+
+user.{id, social_name}
+
+const users = my_database.run %%dbquery (
+    select user.{id, social_name, account.number}
+    for user in users
+    when user.deletion_timestamp == null
+) 
+
+###
+typeof users == Partial<typeo>
+###
