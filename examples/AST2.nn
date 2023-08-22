@@ -1,0 +1,35 @@
+
+# Normally the expression would be parsed as a function call
+# of the assignment expression of the value of a symbol,
+# with the result of a multiplication and a sum, etc.
+
+# `%%ast` instead makes the parser save it as an 'AST' literal.
+
+%%define expr as { %%ast {resolve_symbols: false} }
+
+const my_expression = %%expr y == 2 * x + 4
+
+# This AST object can then be interpreted at runtime.
+
+const my_graph = SomeGraphCalcLibrary.graph(my_expression)
+
+# Something very powerful that could also happen is
+# to provide an alternate grammar to add to the parser's ruleset stack.
+
+%%define sql as {
+    %%ast {
+        resolve_symbols: false,
+        grammar: %%read('./sql_grammar', nnc::NanoParserGrammar)
+    }
+}
+
+# And then use it for your mischievous needs.
+
+import * from mysql
+
+const database = MySQLDatabase {
+    host: 'localhost'
+    port: 3306
+}
+
+const users = database.query %%sql SELECT * FROM users

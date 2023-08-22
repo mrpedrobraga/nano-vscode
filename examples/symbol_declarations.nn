@@ -1,0 +1,18 @@
+## Inferring function usage based on return type.
+
+fn random<T>
+    when <int>(): int -> randi()
+    when <float>(): float -> randf()
+
+const a : float = random()
+const b : int = random()
+
+## This is so damn cursed.
+
+fn new<T> -> return T();
+
+const p : Person = Person()
+
+# could be written as
+
+const p2 : Person = new()

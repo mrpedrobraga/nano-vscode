@@ -4,6 +4,7 @@ const canvas = html.query_selector '#myCanvas'
 const GL = canvas.get_webgl_context()
 
 # Shader
+%%glsl
 class MyShader : ShaderProgram:
     %%uniform blue_cycle_speed : float = 0
 

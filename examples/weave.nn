@@ -18,9 +18,9 @@ const mobj = {
 }
 
 const weave = fn target: obj -> (
-    if $children in _
-        then _.children {}|> weave _
-        else _.type
+    if $children in target
+        then target.children {}|> weave _
+        else target.type
 )
 
 const mobj2 = mobj {}|> weave _

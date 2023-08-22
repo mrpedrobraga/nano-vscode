@@ -5,9 +5,4 @@ const database = MySQLDatabase {
     port: 3306
 }
 
-const myquery = %%sql (
-    SELECT * FROM users
-)
-
-const users = database.query 
-
+const users = database.query %%sql SELECT * FROM users

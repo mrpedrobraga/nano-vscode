@@ -1,0 +1,6 @@
+
+fn disjunction (...args: list<bool>) ->
+    reduce args with fn a, b -> a | b
+
+const disjunction = fn ...args ->
+    reduce args with fn a, b -> a | b

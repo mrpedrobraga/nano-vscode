@@ -31,6 +31,19 @@ const MyTypeUpdateAll = AllRequired<MyTypeUpdate>
 # This is just the original "MyType," lol.
 ```
 
+## Interface Casting Types
+
+```nano
+const MyClass = class -> (
+    name: string
+    age: int
+)
+
+fn my_func (shared parameter: Like<MyClass>) -> (
+    parameter.makeUppercase()
+)
+```
+
 ## Literal Types
 
 ```nano

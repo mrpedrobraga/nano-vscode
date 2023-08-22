@@ -1,17 +1,17 @@
-%%export
-const PIPE_INTERRUPTOR = $`PIPE_INTERRUPTOR`
+const break = fn (target: BreakTarget = CLOSEST);
 
-%%export
-Pipe = class : <T> {
-    value : T
+2
+    |> _ * 3
+    |> _ * 4
+    |> break
+    |> _ * 5
 
-    to := <E>fn callback: function<T, E> -> InterruptiblePipe<E>:
-        (const result = callback value
 
-        if result == PIPE_INTERRUPTOR
-            return InterruptedPipe value
-
-        (a > b) and a or b;
-
-        return Pipe result)
-}
+%%name('l1')
+for i in my_list:
+    i
+    |> _ * 3
+    |> _ * 4
+    |> break LOOP 'l1'
+    |> _ * 5
+    
