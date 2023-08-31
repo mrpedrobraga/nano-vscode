@@ -1,0 +1,24 @@
+
+o = {
+    a: "Hey",
+    b: "Oh"
+    c: {
+        d: "Let's"
+        e: 344
+    }
+}
+
+const INT_MATCHER = int
+
+o/ "Hey" /
+o/ $string /
+
+match o
+    with o/{
+        a: $string
+        b: "Oh"
+        c: {
+            d: $/Ka/
+            e: $INT_MATCHER
+        }
+    }/

@@ -1,0 +1,75 @@
+# Traits are collections of properties
+# and behaviours relating to some entity.
+
+trait Renderable2D {
+    # A shared property can be accessed by multiple traits.
+    shared position: fvec2
+
+    # A non shared property is unique to each instance of a trait.
+    # An entity can, in theory, have multiple instances of the same trait.
+    sprite: Image2D
+}
+
+trait Velocity2D {
+    # This position is the same one as the
+    # one in Renderable2D, if they're used in the same
+    # entity.
+    shared position: fvec2
+    shared velocity: fvec2
+
+    fn process(delta_time: float) -> (
+        position = position + velocity * delta_time
+    )
+}
+
+trait Acceleration2D {
+    # Similarly, this velocity is the same
+    # as the one above.
+    shared velocity: fvec2
+    shared acceleration: fvec2
+
+    fn process(delta_time: float) -> (
+        velocity = velocity + acceleration * delta_time
+    )
+}
+
+# An entity is a type of data structure that
+# aggregates all the properties of its traits,
+# and handles distributions of methods.
+
+# An entity can be given and taken traits in runtime,
+# differently from classes.
+let e := Entity [Velocity2D, Acceleration2D]
+
+# This function will be called in all of the traits,
+# in the order they were added to the entity.
+e.process(60 ** -1)
+
+# A class can embed traits inside it.
+# This is an alternative to inheritance.
+class Person {
+    # Traits are NOT interfaces,
+    # they contribute with actual data and behaviour.
+
+    # The functions inside traits can't be overriden,
+    # If you want to override anything use interfaces
+    # or classes.
+    has Renderable2D
+    has Velocity2D
+    has Acceleration2D
+
+    mass: float
+
+    get momentum -> velocity * mass
+}
+
+# A trait can be used to type a variable.
+# Objects passed onto that argument will be treated 
+# as an entity that implements only the traits specified.
+fn kill_momentum(some_object: has Velocity2D) -> (
+    some_object.velocity = 0
+
+    # Won't call `process` on the object's Acceleration2D
+    # even if it has that trait.
+    some_object.process()
+)

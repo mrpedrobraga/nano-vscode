@@ -38,6 +38,12 @@
           "include": "#strings-double"
         },
         {
+          "include": "#symbol-simple"
+        },
+        {
+          "include": "#symbol-string"
+        },
+        {
           "include": "#strings-single"
         },
         {
@@ -70,7 +76,7 @@
       "patterns": [
         {
           "name": "meta.preprocessor.string",
-          "match": "%%\\w+\\b"
+          "match": "%%\\w+\\s+\\((.*)\\)\\b"
         }
       ]
     },
@@ -90,15 +96,15 @@
       "patterns": [
         {
           "name": "keyword.control.nano",
-          "match": "\\b(if|unless|then|elif|elun|else|while|until|for|in|loop|do|select|every|some|count|reduce|match|when|with|return|err|break|continue|discard|typeof)\\b"
+          "match": "\\b(if|unless|then|elif|elun|else|while|until|for|in|loop|do|select|every|some|count|reduce|match|when|with|return|err|yield|break|continue|discard|typeof)\\b"
         },
         {
           "name": "storage.modifier",
-          "match": "\\b(alias|let|const|shared|fn|get|set|call|construct|signal|slot|class|struct|type|trait|global|volatile)\\b"
+          "match": "\\b(let|shared|trait|has|fn|get|set|call|construct|readonly|slot|signal|state|class|struct|type|global|export)\\b"
         },
         {
           "name": "storage.type",
-          "match": "\\b(bool|int|i8|byte|i16|i32|i64|uint|u8|u16|u32|u64|float|f32|f64|fvec2|fvec3|fvec4|ivec2|ivec3|ivec4|bvec2|bvec3|bvec4|string|list|struct|object|type|symbol|buffer|enum|flags|vec|mat|function|obj|addr|void|exclude)\\b"
+          "match": "\\b(bool|int|i8|byte|i16|i32|i64|uint|u8|u16|u32|u64|float|f32|f64|fvec2|fvec3|fvec4|ivec2|ivec3|ivec4|bvec2|bvec3|bvec4|string|list|struct|object|type|identifier|symbol|buffer|enum|flags|vec|mat|function|obj|addr|void|exclude)\\b"
         },
         {
           "name": "keyword.operator",
@@ -118,7 +124,7 @@
         },
         {
           "name": "keyword.other",
-          "match": "\\b(print|connect|addrof|await|import)\\b"
+          "match": "\\b(print|connect|addrof|await|async|import|use)\\b"
         },
         {
           "name": ""
@@ -153,6 +159,27 @@
         }
       ]
     },
+    "symbol-simple": {
+      "name": "constant.regexp",
+      "match": "\\$\\w+"
+    },
+    "symbol-string": {
+      "name": "constant.regexp",
+      "begin": "\\$\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.nano",
+          "match": "\\\\."
+        },
+        {
+          "begin": "{",
+          "end": "}",
+          "name": "source.nano",
+          "patterns": [{ "include": "#expression" }]
+        }
+      ]
+    },
     "strings-regex": {
       "name": "constant.regexp",
       "begin": "r/",
@@ -165,15 +192,19 @@
       ]
     },
     "pattern-matcher-literal": {
-      "name": "constant.regexp",
+      "name": "source.nano",
       "begin": "o/",
       "end": "/",
-      "patterns": [
-        {
-          "name": "constant.character.escape.nano",
-          "match": "\\\\."
+      "beginCaptures": {
+        "0": {
+          "name": "constant.regexp"
         }
-      ]
+      },
+      "endCaptures": {
+        "0": {
+          "name": "constant.regexp"
+        }
+      }
     },
     "strings-double-block": {
       "name": "string.quoted.double.nano",

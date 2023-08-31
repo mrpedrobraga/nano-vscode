@@ -1,0 +1,46 @@
+# --- On a simple list ---
+
+l = [1, 2, 3, 4]
+
+# Accessing with [] destructures the list
+# and returns the accessed member.
+l[0] == 1
+
+# Accessing with .() maintains the structure
+# and fills it with the picked members.
+l.(0) == [1]
+l.(0, 2) == [1, 3]
+
+# --- On a simple object ---
+
+o = {
+    a: "Hey"
+    b: "Oh"
+    c: "Let's go"
+}
+
+o.a == "Hey"
+o.(a) == {a: "Hey"}
+o.(a, c) == {a: "Hey", c: "Let's go"}
+
+# --- On a complex list
+
+a = [
+    [1, 2]
+    [2, 3]
+    [3, 4]
+]
+
+# Maintain structure when narrowing;
+a[*][1] == [
+    2
+    3
+    4
+]
+
+# Grab leaves without any structuring;
+a[*].(1) == [
+    [2]
+    [3]
+    [4]
+]

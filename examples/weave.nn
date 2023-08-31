@@ -1,4 +1,6 @@
-const mobj = {
+## Imagine there's a big object such as this one:
+
+let mobj = {
     a: {
         name: "A",
         type: "node"
@@ -17,13 +19,13 @@ const mobj = {
     }
 }
 
-const weave = fn target: obj -> (
+let weave = fn target: obj -> (
     if $children in target
         then target.children {}|> weave _
         else target.type
 )
 
-const mobj2 = mobj {}|> weave _
+let mobj2 = mobj {}|> weave _
 
 ###
 mobj2 will be
@@ -35,3 +37,72 @@ mobj2 will be
     }
 }
 ###
+
+## The compiler does as such:
+
+let my_tree : NanoASTNode = {
+    expressions: [
+        {
+            node: SYMBOL_CALL
+            reference: $"__nano__::sum"
+            args: [
+                {
+                    node: LITERAL
+                    r_type: __nano__.i32
+                    r_value: 32
+                    labels: []
+                },
+                {
+                    node: LITERAL
+                    r_type: __nano__.i32
+                    r_value: 4
+                    labels: []
+                },
+            ]
+            r_type: __nano__.i32
+            r_value: 0
+            labels: []
+        }
+    ]
+    labels: [Nano.OUTPUT]
+}
+
+my_tree::propagate_labels_down [Nano.OUTPUT]
+my_tree::propagate_labels_up [Nano.INPUT]
+
+let symbols: WeaveRules = {
+    $"__nano__::sum": fn
+        when (sc: NanoASTSymbolCall, context: NanoWeaveContext) -> (
+            (return) if not sc.has_label Nano.OUTPUT
+            
+            match
+                when not some arg.has_label Nano.INPUT for arg in args then (
+                    match
+                        when context.target == $"text::nano" then
+                            context.commit_return (
+                                '{sc.args[0].value} + {sc.args[1].value}'
+                        )
+                        else context.commit_return (
+                            sc.args[0].value + sc.args[1].value
+                        )
+                )
+
+                when context.target == $x86 then (
+                    let A = context.commit_get(sc.args[0])
+                    let B = context.commit_get(sc.args[1])
+                    context.commit_do($mov, $EAX, A)
+                    context.commit_do($mov, $EBX, B)
+                    context.commit_do($add, $EAX, $EBX)
+                    context.commit_return($EAX)
+                )
+
+                when context.target == $nnbc then (
+                    let A = context.commit_get(sc.args[0])
+                    let B = context.commit_get(sc.args[1])
+                    context.commit_do($LLR, A, $A)
+                    context.commit_do($LLR, B, $B)
+                    context.commit_do($SUM, $A, $B, $A)
+                    context.commit_return($A)
+                )
+        )
+}
