@@ -1,8 +1,8 @@
 import * from mysql
 
-const database = MySQLDatabase {
+let database = MySQLDatabase {
     host: 'localhost'
     port: 3306
 }
 
-const users = database.query %%sql SELECT * FROM users
+let users = database.query %%sql SELECT * FROM users

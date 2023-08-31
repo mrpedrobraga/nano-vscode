@@ -8,7 +8,7 @@ o = {
     }
 }
 
-const INT_MATCHER = int
+let INT_MATCHER = int
 
 o/ "Hey" /
 o/ $string /

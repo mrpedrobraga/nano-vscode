@@ -1,24 +1,87 @@
-import cmdArgs;
+import cmd_args;
 
 problems = []
 
-# CALC!
+# Instead of `throw`, errors
+# are passed as the return value
+# of the function.
 
-# Calling with 'calc add 2 2'
+# Functions that can error will
+# disclose they return their errors
+# with an error union type.
 
-op = cmdArgs[1]
+op = cmd_args[1]
 
-a = parseFloat(cmdArgs[2])
-    !|> problems += '{cmdArgs[2]} não é um número válido.';
+# Here, the parse_float function in the example
+# returns float!ParseError
 
-b = parseFloat(cmdArgs[3])
-    !|> problems += '{cmdArgs[3]} não é um número válido.';
+a = parseFloat(cmd_args[2])
+b = parseFloat(cmd_args[3])
 
-if problems.isnt_empty then error problems
+# You can use an error pipe to quickly treat an error.
+# and collapse the variable to a definitely non-error type.
+a !|> error '{cmd_args[2]} não é um número válido.'
+b !|> error '{cmd_args[3]} não é um número válido.'
 
 result := match op
     when 'add' then
         a + b
 
+# ------ #
 
-# parseFloat -> float!ParseError
+# There are scope-applicable ErrorHandlers,
+# which will handle any error return.
+
+# This error handler here will print some information
+# to the console and then immediately exit.
+
+let ParseErrorHandler = err_handler (e: ParseError, c: ExecutionContext) -> (
+    print '{error.parse_input} não é um número válido.'
+    exit
+)
+
+# ------ #
+
+import cmd_args;
+
+# Use `with` to apply an error handler to the scope,
+# instead of surrounding the scope in a new nesting level.
+with ParseErrorHandler
+
+op = cmd_args[1]
+# The error result is automatically piped to the error handler,
+# and since the program will `exit` if the error handler catches
+# it, the type of `a` will be `narrowed` to `float`.
+a = parse_float(cmd_args[2])
+b = parse_float(cmd_args[3])
+
+result := match op
+    when 'add' then
+        a + b
+
+# ------ #
+
+# You may ask: Isn't it a little slow that
+# every return has to check for an error handler in scope?
+
+# Nuh-uh!!!
+
+fn parse_float (input: string): float!ParseError -> (
+    let is_valid_float = match input with r/[\d_]+(.[\d_]+)?f?/
+
+    # An error is returned with the `err` keyword,
+    # in which case the caller scope will look
+    # for error handlers.
+    
+    # This is a middle ground between `returing`
+    # and error and throwing it.
+    if !is_valid_float then err ParseError(input)
+
+    ...
+    return float_value
+)
+
+# You can technically use the `err` keyword and error handlers
+# to take care of any kind of "function call result" even if
+# it's not an error. But be careful to not muddy your project's
+# semantics.

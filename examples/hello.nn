@@ -63,7 +63,7 @@ v2 : vec<2> = (7, 8)
 
 m : mat<4, 4> = (
     (1, 0, 0, 0)
-    (0, 1, 0, 0)    # Constructing a 4x4 matrix. Note it looks nothing like a math matrix.
+    (0, 1, 0, 0)    # letructing a 4x4 matrix. Note it looks nothing like a math matrix.
     (0, 0, 1, 0)    # Here each vector is written in a row.
     (0, 0, 0, 1)
 )
@@ -172,7 +172,7 @@ o["yet_another_new_value"] = "ooo"
 my_class = class: value, value2 : int, valueboo : bool
 
 # You can now use 'my_class' as a type anywhere!
-# You can also use it as a constructor (behaves identical to a function).
+# You can also use it as a letructor (behaves identical to a function).
 
 my_obj : my_class = my_class 0, 5, false
 
@@ -342,20 +342,20 @@ Velocity = trait<T>
 	shared velocity := vec<T>()
 	shared position := vec<T>()
 
-	const process = fn dt : float
+	let process = fn dt : float
 		position += velocity * dt
 
 Acceleration = trait<T>
 	shared acceleration := vec<T>()
 	shared velocity := vec<T>()
 
-	const process = fn dt : float
+	let process = fn dt : float
 		velocity += acceleration * dt
 
 Sprite = trait
 	shared position := vec<2>()
 
-	const process = fn : float
+	let process = fn : float
 		Graphics.pset position, 0xFFFFFF
 
 # Create a player object

@@ -31,14 +31,14 @@ a = [
     [3, 4]
 ]
 
-# Maintain structure when narrowing;
+# Destructure the members;
 a[*][1] == [
     2
     3
     4
 ]
 
-# Grab leaves without any structuring;
+# Keep structure of the members;
 a[*].(1) == [
     [2]
     [3]

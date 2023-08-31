@@ -76,7 +76,7 @@
       "patterns": [
         {
           "name": "meta.preprocessor.string",
-          "match": "%%\\w+\\s+\\((.*)\\)\\b"
+          "match": "%%\\w+(\\s+\\(.*\\))?"
         }
       ]
     },
@@ -96,7 +96,7 @@
       "patterns": [
         {
           "name": "keyword.control.nano",
-          "match": "\\b(if|unless|then|elif|elun|else|while|until|for|in|loop|do|select|every|some|count|reduce|match|when|with|return|err|yield|break|continue|discard|typeof)\\b"
+          "match": "\\b(if|unless|then|elif|elun|else|while|until|for|in|of|loop|do|select|every|some|count|reduce|match|when|with|return|err|yield|break|continue|discard|typeof)\\b"
         },
         {
           "name": "storage.modifier",

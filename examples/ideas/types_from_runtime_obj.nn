@@ -1,15 +1,15 @@
 
 # Creates an interface based on a class.
-const Ta = Like<SomeClass>;
+let Ta = Like<SomeClass>;
 
 # Sources the type of a predefined value.
-const a = 3;
-const Tb = typeof a;
+let a = 3;
+let Tb = typeof a;
 
 # Sources the keys of a predefined object, struct or class.
-const paul_obj = {
+let paul_obj = {
     name: "Paul"
     age: 10
 }
 
-const Tc = keyof paul_obj  # Union ["name", "age"]
+let Tc = keyof paul_obj  # Union ["name", "age"]

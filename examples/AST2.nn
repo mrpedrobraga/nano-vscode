@@ -7,11 +7,11 @@
 
 %%define expr as { %%ast {resolve_symbols: false} }
 
-const my_expression = %%expr y == 2 * x + 4
+let my_expression = %%expr y == 2 * x + 4
 
 # This AST object can then be interpreted at runtime.
 
-const my_graph = SomeGraphCalcLibrary.graph(my_expression)
+let my_graph = SomeGraphCalcLibrary.graph(my_expression)
 
 # Something very powerful that could also happen is
 # to provide an alternate grammar to add to the parser's ruleset stack.
@@ -27,9 +27,9 @@ const my_graph = SomeGraphCalcLibrary.graph(my_expression)
 
 import * from mysql
 
-const database = MySQLDatabase {
+let database = MySQLDatabase {
     host: 'localhost'
     port: 3306
 }
 
-const users = database.query %%sql SELECT * FROM users
+let users = database.query %%sql SELECT * FROM users

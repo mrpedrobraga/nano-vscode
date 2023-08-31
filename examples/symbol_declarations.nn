@@ -4,15 +4,15 @@ fn random<T>
     when <int>(): int -> randi()
     when <float>(): float -> randf()
 
-const a : float = random()
-const b : int = random()
+let a : float = random()
+let b : int = random()
 
 ## This is so damn cursed.
 
 fn new<T> -> return T();
 
-const p : Person = Person()
+let p : Person = Person()
 
 # could be written as
 
-const p2 : Person = new()
+let p2 : Person = new()
